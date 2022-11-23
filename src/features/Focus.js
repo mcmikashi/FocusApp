@@ -1,39 +1,39 @@
-import { StyleSheet, View, TextInput  } from "react-native";
+import { StyleSheet, View, TextInput } from "react-native";
 import { useState } from "react";
 import RoundedButton from "../components/RoundedButton";
-const Focus = ({validateFocus}) => {
-    const [tempFocus, settempFocus] = useState('')
-    return (
-        <View style={styles.mainContainer}>
-            <View style={styles.headerContainer}>
-                <TextInput
-                    style={styles.textinput}
-                    placeholder="What did you want to focus on ?"
-                    onChangeText={settempFocus}
-                    value={tempFocus}
-                />
-                <RoundedButton title="Go" onPress={() => validateFocus(tempFocus)}/>
-            </View>
-        </View>
-    );
+const Focus = ({ validateFocus }) => {
+  const [tempFocus, settempFocus] = useState("");
+  return (
+    <View style={styles.mainContainer}>
+      <View style={styles.headerContainer}>
+        <TextInput
+          style={styles.textinput}
+          placeholder="What did you want to focus on ?"
+          onChangeText={settempFocus}
+          value={tempFocus}
+        />
+        <RoundedButton title="Go" onPress={() => validateFocus(tempFocus)} />
+      </View>
+    </View>
+  );
 };
 
 export default Focus;
 
 const styles = StyleSheet.create({
-    mainContainer: {
-        padding: 10,
-    },
-    headerContainer: {
-        flexDirection: "row",
-        justifyContent: "center",
-        gap : 4,
-    },
-    textinput: {
-        borderColor: "black",
-        borderRadius: 5,
-        borderWidth: 2,
-        padding: 4,
-        width: "80%",
-    },
+  mainContainer: {
+    padding: 10,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 4,
+  },
+  textinput: {
+    borderColor: "black",
+    borderRadius: 5,
+    borderWidth: 2,
+    padding: 4,
+    width: "80%",
+  },
 });
