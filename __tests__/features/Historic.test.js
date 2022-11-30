@@ -18,6 +18,7 @@ test("check that the focust list is rendered wiht not empty list", () => {
   const focusSubjectTwo = screen.getByText(focuslist[1].title);
   expect(focusSubjectTwo).toBeTruthy();
   expect(focusSubjectTwo.props.style.color).toEqual("green");
+  expect(screen.getAllByText("X")).toHaveLength(2);
 });
 
 test("check when clear button is pressed then clear function is called", () => {
@@ -34,4 +35,11 @@ test("check that on press a subject then the focusSubject function is called", (
   render(<Historic focusList={focuslist} focusSubject={focusSubjectmock} />);
   fireEvent.press(screen.getByText(focuslist[0].title));
   expect(focusSubjectmock).toBeCalledWith(focuslist[0]);
+});
+
+test("check that on press a delete button item then the deleteItem function is called", () => {
+  const deleteItemmock = jest.fn();
+  render(<Historic focusList={focuslist} deleteItem={deleteItemmock} />);
+  fireEvent.press(screen.getAllByText("X")[0]);
+  expect(deleteItemmock).toBeCalledWith(focuslist[0].id);
 });

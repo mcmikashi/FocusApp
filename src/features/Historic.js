@@ -7,20 +7,29 @@ import {
   SafeAreaView,
 } from "react-native";
 import React from "react";
-
-const Historic = ({ focusList, clearHistory, focusSubject }) => {
-  const Item = ({ title, status, onPress }) => (
-    <View>
+import RoundedButton from "../components/RoundedButton";
+const Historic = ({ focusList, clearHistory, focusSubject, deleteItem }) => {
+  const Item = ({ title, status, onPress, deleteItem }) => (
+    <View style={styles.itemContainer}>
       <Text style={styles.item(status)} onPress={onPress}>
         {title}
       </Text>
+      <RoundedButton
+        size={30}
+        title="X"
+        style={styles.deleteButton}
+        onPress={deleteItem}
+        testID="deleteButton"
+      />
     </View>
   );
+
   const renderItem = ({ item }) => (
     <Item
       title={item.title}
       status={item.status}
       onPress={() => focusSubject(item)}
+      deleteItem={() => deleteItem(item.id)}
     />
   );
 
@@ -36,7 +45,11 @@ const Historic = ({ focusList, clearHistory, focusSubject }) => {
               keyExtractor={(item) => item.id}
             />
           </SafeAreaView>
-          <Button title="clear" onPress={() => clearHistory()} />
+          <Button
+            title="clear"
+            style={styles.clearButton}
+            onPress={() => clearHistory()}
+          />
         </View>
       ) : (
         <Text style={styles.simpleText}>Nothing yet</Text>
@@ -66,5 +79,17 @@ const styles = StyleSheet.create({
   }),
   simpleText: {
     textAlign: "center",
+  },
+  deleteButton: {
+    backgroundColor: "red",
+    padding: 1,
+  },
+  deleteButtonTet: {
+    fontSize: 5,
+  },
+  itemContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginVertical: 10,
   },
 });

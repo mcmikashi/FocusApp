@@ -48,6 +48,10 @@ export default function App() {
   function clearHistory() {
     setfocusList(() => []);
   }
+  function deleteItemFromHistory(itemId){
+    let newFocuslist = focusList.filter( item => item.id != itemId)
+    setfocusList(() => [...newFocuslist])
+  }
   useEffect(() => {
     if (finishedFocus) {
       const result = focusList.find(({ id }) => id === finishedFocus.id);
@@ -84,6 +88,7 @@ export default function App() {
             focusSubject={historicFocus}
             focusList={focusList}
             clearHistory={clearHistory}
+            deleteItem={deleteItemFromHistory}
           />
         </View>
       )}
