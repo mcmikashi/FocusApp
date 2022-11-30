@@ -12,7 +12,11 @@ const Focus = ({ validateFocus }) => {
           onChangeText={settempFocus}
           value={tempFocus}
         />
-        <RoundedButton title="Go" onPress={() => validateFocus(tempFocus)} />
+        <RoundedButton
+          title="Go"
+          size={60}
+          onPress={() => validateFocus(tempFocus)}
+        />
       </View>
     </View>
   );
@@ -33,7 +37,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 5,
     borderWidth: 2,
-    padding: 4,
-    width: "80%",
+    padding: 8,
+    width: "75%",
   },
 });
