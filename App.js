@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, SafeAreaView, StatusBar} from "react-native";
 import Focus from "./src/features/Focus";
 import Historic from "./src/features/Historic";
 import Timers from "./src/features/Timers";
@@ -87,7 +87,8 @@ export default function App() {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={'red'}/>
       {focusSubject ? (
         <Timers
           focusSubject={focusSubject}
@@ -105,12 +106,13 @@ export default function App() {
           />
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex:1,
     backgroundColor: colors.background,
     padding: 25,
     justifyContent: "space-between",
