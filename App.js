@@ -12,18 +12,27 @@ export default function App() {
   const [focusList, setfocusList] = useState([]);
   const [finishedFocus, setfinishedFocus] = useState(null);
 
-  const savefocusListHistoric = async (focusList) => {
+  const loadFocusListHistoric = async () => {
     try {
-      const jsonFocusList = JSON.stringify(focusList);
-      await AsyncStorage.setItem("focusListHistoric", jsonFocusList);
+      const jsonFocusList = await AsyncStorage.getItem("focusListHistoric");
+      jsonFocusList != null ? setfocusList(JSON.parse(jsonFocusList)) : null;
     } catch (e) {
       console.log(e);
     }
   };
-  const loadfocusListHistoric = async () => {
+  const updateFocusListHistoric = async () => {
     try {
-      const jsonFocusList = await AsyncStorage.getItem("focusListHistoric");
-      jsonFocusList != null ? setfocusList(JSON.parse(jsonFocusList)) : null;
+      if (focusList.length > 0) {
+        const jsonFocusList = JSON.stringify(focusList);
+        await AsyncStorage.setItem("focusListHistoric", jsonFocusList);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const removeFocusListHistoric = async () => {
+    try {
+      await AsyncStorage.removeItem("focusListHistoric");
     } catch (e) {
       console.log(e);
     }
@@ -47,10 +56,14 @@ export default function App() {
   }
   function clearHistory() {
     setfocusList(() => []);
+    removeFocusListHistoric();
   }
-  function deleteItemFromHistory(itemId){
-    let newFocuslist = focusList.filter( item => item.id != itemId)
-    setfocusList(() => [...newFocuslist])
+  function deleteItemFromHistory(itemId) {
+    let newFocuslist = focusList.filter((item) => item.id != itemId);
+    setfocusList(() => [...newFocuslist]);
+    if (focusList.length === 0) {
+      removeFocusListHistoric();
+    }
   }
   useEffect(() => {
     if (finishedFocus) {
@@ -67,10 +80,10 @@ export default function App() {
     }
   }, [finishedFocus]);
   useEffect(() => {
-    savefocusListHistoric(focusList);
+    updateFocusListHistoric();
   }, [focusList]);
   useEffect(() => {
-    loadfocusListHistoric();
+    loadFocusListHistoric();
   }, []);
 
   return (
